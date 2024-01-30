@@ -1,0 +1,359 @@
+
+<div class="right-sidebar woocommerce-checkout">
+    <div class="page-header border-bottom">
+        <div class="container">
+            <div class="d-md-flex justify-content-between align-items-center py-4">
+                <h1 class="page-title font-size-3 font-weight-medium m-0 text-lh-lg">Shop Single</h1>
+                <nav class="woocommerce-breadcrumb font-size-2">
+                    <a href="#" class="h-primary">Home</a>
+                    <span class="breadcrumb-separator mx-1"><i class="fas fa-angle-right"></i></span>
+                    <a href="#" class="h-primary">Shop</a>
+                    <span class="breadcrumb-separator mx-1"><i class="fas fa-angle-right"></i></span>Shop Single
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="site-content bg-punch-light space-bottom-3">
+        <div class="col-full container">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                        <header class="entry-header space-top-2 space-bottom-1 mb-2">
+                            <h4 class="entry-title font-size-7 text-center">Checkout</h4>
+                        </header>
+                        <!-- .entry-header -->
+                        
+                        <div class="entry-content">
+                            <div class="woocommerce">
+                                <form #orderForm="ngForm" (ngSubmit)="createOrder(orderForm)">
+                                <div class="checkout woocommerce-checkout row mt-8">
+                                    <div class="col2-set col-md-6 col-lg-7 col-xl-8 mb-6 mb-md-0" id="customer_details">
+                                        <div class="px-4 pt-5 bg-white border">
+                                            <div class="d-flex justify-content-between">
+                                            <div class="card mb-5" style="width: 20rem; position: relative;">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Your Shipping Address</h5>
+                                                  <h6 class="card-subtitle mb-2 text-body-secondary">{{userAddress.shippingAddress.contactName}}</h6>
+                                                    <div>{{userAddress.shippingAddress.city}}</div>
+                                                    <div>{{userAddress.shippingAddress.country}}</div>
+                                                    <p class="card-text">{{maxCharacter(userAddress.shippingAddress.addressDescription)}}</p>
+                                                  <a class="card-link btn btn-primary w-100" (click)="setAddress(1)" style="float: right; color: #fff;">Use This Address For Shipping</a>
+                                                </div>
+                                              </div>
+
+                                              <div *ngIf="!isSameAddress" class="card mb-5" style="width: 20rem; position: relative;">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Your Billing Address</h5>
+                                                  <h6 class="card-subtitle mb-2 text-body-secondary">{{userAddress.billingAddress.contactName}}</h6>
+                                                    <div>{{userAddress.billingAddress.city}}</div>
+                                                    <div>{{userAddress.billingAddress.country}}</div>
+                                                    <p class="card-text">{{maxCharacter(userAddress.billingAddress.addressDescription)}}</p>
+                                                  <a class="card-link btn btn-primary w-100" (click)="setAddress(2)" style="float: right; color: #fff;">Use This Address For Billing</a>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="custom-control custom-checkbox mb-3">
+                                                <input class="custom-control-input" type="checkbox" (click)="changeSameAddress()" 
+                                                [(ngModel)]="isSameAddress" name="isSameAddress" role="switch" id="cbx-3" checked>
+                                                <label class="custom-control-label" for="cbx-3"><strong> Want to make your billing address the same as your shipping address?</strong></label>
+                                              </div>
+                                              <div class="flex justify-content-center mb-3">
+                                                    <p-accordion [activeIndex]="0">
+                                                        <p-accordionTab header="Shipping Address">
+                                                            <div class="woocommerce-billing-fields__field-wrapper row">
+                                                                <p class="col-lg-6 mb-4d75 form-row form-row-first validate-required woocommerce-invalid woocommerce-invalid-required-field" id="shipping_contactName" data-priority="10">
+                                                                    <label for="shipping_contactName" class="form-label">Contact Name</label>
+                                                                    <input [(ngModel)]="shippingAddress.contactName" type="text" class="input-text form-control" name="shipping_contactName" id="shipping_contactName" required>
+                                                                </p>
+            
+                                                                <p class="col-lg-6 mb-4d75 form-row form-row-last validate-required" id="shipping_contactEmail" data-priority="20">
+                                                                    <label for="shipping_contactEmail" class="form-label">Contact Email</label>
+                                                                    <input [(ngModel)]="shippingAddress.contactEmail" type="text" class="input-text form-control" name="shipping_contactEmail" id="shipping_contactEmail" required>
+                                                                </p>
+            
+                                                                <div class="col-12 mb-4d75 form-row form-row-wide" id="shipping_number" data-priority="30">
+                                                                    <label for="shipping_number">Phone Number</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text">
+                                                                            +90
+                                                                        </span>
+                                                                        <input [(ngModel)]="shippingAddress.contactPhoneNumber"  type="text" class="form-control rounded-0" name="shipping_number" placeholder="5** *** ** **" id="shipping_number"
+                                                                        required >
+                                                                    </div>
+                                                                </div>
+            
+                                                                <p class="col-12 mb-4d75 form-row form-row-wide address-field validate-required" id="shipping_city" data-priority="70" data-o_class="form-row form-row-wide address-field validate-required">
+                                                                    <label for="shipping_city" class="form-label">City</label>
+                                                                    <input [(ngModel)]="shippingAddress.city" type="text" class="input-text form-control" name="shipping_city" id="shipping_city" required>
+                                                                </p>
+            
+                                                                <p class="col-12 mb-4d75 form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated" id="shipping_country" data-priority="40">
+                                                                    <label for="shipping_country" class="form-label">Country</label>
+                                                                    <input [(ngModel)]="shippingAddress.country" type="text" class="input-text form-control" name="shipping_country" id="shipping_country" required>
+                                                                </p>
+            
+                                                                <p class="col-12 mb-4d75 form-row form-row-wide address-field validate-postcode validate-required" id="shipping_postcode" data-priority="90" data-o_class="form-row form-row-wide address-field validate-required validate-postcode">
+                                                                    <label for="shipping_postcode" class="form-label">Postcode</label>
+                                                                    <input [(ngModel)]="shippingAddress.zipCode" type="text" class="input-text form-control" name="shipping_postcode" id="shipping_postcode" required>
+                                                                </p>
+                                                                
+                                                            <p class="col-12 mb-4d75 form-row form-row-wide address-field validate-postcode validate-required" id="shipping_addressDescription" >
+                                                                <label for="shipping_addressDescription" class="form-label">Address Information</label>
+                                                                <textarea [(ngModel)]="shippingAddress.addressDescription" name="shipping_addressDescription" class="input-text form-control" id="shipping_addressDescription" placeholder="e.g. Eskihisar Mah. .... Kadikoy/Istanbul" rows="8" cols="5"></textarea>
+                                                            </p>
+            
+            
+                                                            <p class="col-12 mb-4d75 form-row form-row-wide address-field validate-postcode validate-required" id="shipping_order_comments">
+                                                                <label for="shipping_order_comments" class="form-label">Order notes (optional)</label>
+                                                                <textarea [(ngModel)]="orderNotes" name="shipping_order_comments" class="input-text form-control" id="shipping_order_comments" placeholder="Notes about your order, e.g. special notes for delivery." rows="8" cols="5"></textarea>
+                                                            </p>
+                                                            </div>
+                                                        </p-accordionTab>
+                                                        <p-accordionTab *ngIf="!isSameAddress" header="Billing Address">
+                                                            <div class="woocommerce-billing-fields__field-wrapper row">
+                                                                <p class="col-lg-6 mb-4d75 form-row form-row-first validate-required woocommerce-invalid woocommerce-invalid-required-field" id="billing_contactName" data-priority="10">
+                                                                    <label for="billing_contactName" class="form-label">Contact Name</label>
+                                                                    <input [(ngModel)]="billingAddress.contactName" type="text" class="input-text form-control" name="billing_contactName" id="billing_contactName" required>
+                                                                </p>
+                                                        
+                                                                <p class="col-lg-6 mb-4d75 form-row form-row-last validate-required" id="billing_contactEmail" data-priority="20">
+                                                                    <label for="billing_contactEmail" class="form-label">Contact Email</label>
+                                                                    <input [(ngModel)]="billingAddress.contactEmail" type="text" class="input-text form-control" name="billing_contactEmail" id="billing_contactEmail" required>
+                                                                </p>
+                                                        
+                                                                <div class="col-12 mb-4d75 form-row form-row-wide" id="billing_number" data-priority="30">
+                                                                    <label for="billing_number">Phone Number</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text">
+                                                                            +90
+                                                                        </span>
+                                                                        <input [(ngModel)]="billingAddress.contactPhoneNumber"  type="text" class="form-control rounded-0" name="billing_number" placeholder="5** *** ** **" id="billing_number"
+                                                                        required >
+                                                                    </div>
+                                                                </div>
+                                                        
+                                                                <p class="col-12 mb-4d75 form-row form-row-wide address-field validate-required" id="billing_city" data-priority="70" data-o_class="form-row form-row-wide address-field validate-required">
+                                                                    <label for="billing_city" class="form-label">City</label>
+                                                                    <input [(ngModel)]="billingAddress.city" type="text" class="input-text form-control" name="billing_city" id="billing_city" required>
+                                                                </p>
+                                                        
+                                                                <p class="col-12 mb-4d75 form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated" id="billing_country" data-priority="40">
+                                                                    <label for="billing_country" class="form-label">Country</label>
+                                                                    <input [(ngModel)]="billingAddress.country" type="text" class="input-text form-control" name="billing_country" id="billing_country" required>
+                                                                </p>
+                                                        
+                                                                <p class="col-12 mb-4d75 form-row form-row-wide address-field validate-postcode validate-required" id="billing_postcode" data-priority="90" data-o_class="form-row form-row-wide address-field validate-required validate-postcode">
+                                                                    <label for="billing_postcode" class="form-label">Postcode</label>
+                                                                    <input [(ngModel)]="billingAddress.zipCode" type="text" class="input-text form-control" name="billing_postcode" id="billing_postcode" required>
+                                                                </p>
+                                                                
+                                                            <p class="col-12 mb-4d75 form-row form-row-wide address-field validate-postcode validate-required" id="billing_addressDescription" >
+                                                                <label for="billing_addressDescription" class="form-label">Address Information</label>
+                                                                <textarea [(ngModel)]="billingAddress.addressDescription" name="billing_addressDescription" class="input-text form-control" id="billing_addressDescription" placeholder="e.g. Eskihisar Mah. .... Kadikoy/Istanbul" rows="8" cols="5"></textarea>
+                                                            </p>
+                                                            </div>
+                                                        </p-accordionTab>
+                                                    </p-accordion>
+                                                </div>                                  
+                                        </div>
+                                    </div>
+
+                                    <h3 id="order_review_heading" class="d-none">Your order</h3>
+
+                                    <div id="order_review" class="col-md-6 col-lg-5 col-xl-4 woocommerce-checkout-review-order">
+                                        <div id="checkoutAccordion" class="border border-gray-900 bg-white mb-5">
+                                            <div  class="p-4d875 border">
+                                                <div id="checkoutHeadingOnee" class="checkout-head">
+                                                    <a href="#" class="text-dark d-flex align-items-center justify-content-between"
+                                                        data-toggle="collapse"
+                                                        data-target="#checkoutCollapseOnee"
+                                                        aria-expanded="true"
+                                                        aria-controls="checkoutCollapseOnee">
+
+                                                        <h3 class="checkout-title mb-0 font-weight-medium font-size-3">Your order</h3>
+
+                                                        <svg class="mins" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="2px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M0.000,-0.000 L15.000,-0.000 L15.000,2.000 L0.000,2.000 L0.000,-0.000 Z" />
+                                                        </svg>
+
+                                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M15.000,8.000 L9.000,8.000 L9.000,15.000 L7.000,15.000 L7.000,8.000 L0.000,8.000 L0.000,6.000 L7.000,6.000 L7.000,-0.000 L9.000,-0.000 L9.000,6.000 L15.000,6.000 L15.000,8.000 Z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+
+                                                <div id="checkoutCollapseOnee" class="mt-4 checkout-content collapse show"
+                                                    aria-labelledby="checkoutHeadingOnee"
+                                                    data-parent="#checkoutAccordion">
+                                                    <table class="shop_table woocommerce-checkout-review-order-table">
+                                                        <tbody>
+                                                            <tr class="cart_item" *ngFor="let s of shop.shoppingCart">
+                                                                <td class="product-name">
+                                                                    <div>
+                                                                        <span style="color: #f75454; font-size: 12px;">
+                                                                            {{getBookFormat(s.book.bookVariations[0].formatEn)}}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="d-flex">
+                                                                        <span style="max-width: 200px;">{{s.book.titleEn}}</span>
+                                                                        &nbsp; <strong class="product-quantity d-flex align-items-center">× {{s.quantity}}</strong>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-total">
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        {{s.book.bookVariations[0].prices[0].discountedPriceAmount 
+                                                                            ?? s.book.bookVariations[0].prices[0].priceAmount}}
+                                                                        <span class="woocommerce-Price-currencySymbol">
+                                                                            {{s.book.bookVariations[0].prices[0].priceCurrency}}
+                                                                        </span></span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div  class="p-4d875 border">
+                                                <div id="checkoutHeadingOne" class="checkout-head">
+                                                    <a href="#" class="text-dark d-flex align-items-center justify-content-between"
+                                                        data-toggle="collapse"
+                                                        data-target="#checkoutCollapseOne"
+                                                        aria-expanded="true"
+                                                        aria-controls="checkoutCollapseOne">
+
+                                                        <h3 class="checkout-title mb-0 font-weight-medium font-size-3">Cart Totals</h3>
+
+                                                        <svg class="mins" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="2px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M0.000,-0.000 L15.000,-0.000 L15.000,2.000 L0.000,2.000 L0.000,-0.000 Z" />
+                                                        </svg>
+
+                                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M15.000,8.000 L9.000,8.000 L9.000,15.000 L7.000,15.000 L7.000,8.000 L0.000,8.000 L0.000,6.000 L7.000,6.000 L7.000,-0.000 L9.000,-0.000 L9.000,6.000 L15.000,6.000 L15.000,8.000 Z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+
+                                                <div id="checkoutCollapseOne" class="mt-4 checkout-content collapse show"
+                                                    aria-labelledby="checkoutHeadingOne"
+                                                    data-parent="#checkoutAccordion">
+                                                    <table class="shop_table shop_table_responsive">
+                                                        <tbody>
+                                                            <tr class="checkout-subtotal">
+                                                                <th>Subtotal</th>
+                                                                <td data-title="Subtotal">
+                                                                    <strong class="woocommerce-Price-amount amount">
+                                                                        {{ shop.calcualteTotalCartItem().totalPriceAmount }}
+                                                                        {{ shop.calcualteTotalCartItem().priceCurrency }}
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="order-shipping" *ngIf="checkoutModel.couponDetail">
+                                                                <th>Your Coupon</th>
+                                                                <td >
+                                                                    <strong>- {{checkoutModel.couponDetail.discountPercentage == null 
+                                                                        ? (checkoutModel.couponDetail.discountAmount + checkoutModel.couponDetail.discountCurrency)
+                                                                        : (checkoutModel.couponDetail.discountPercentage + "%")}}
+                                                                    </strong> 
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="order-shipping">
+                                                                <th>Shipping Module</th>
+                                                                <td >{{checkoutModel.shippingModule.shippingType}} 
+                                                                    <strong>+{{checkoutModel.shippingModule.shippingPrice}}</strong> 
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-4d875 border">
+                                                <table  class="shop_table shop_table_responsive">
+                                                    <tbody>
+                                                        <tr class="order-total">
+                                                            <th>Total</th>
+                                                            <td data-title="Total">
+                                                                <strong>
+                                                                    {{calculateTotalLastPrice()}}
+                                                                </strong>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="p-4d875 border">
+                                                <div id="checkoutHeadingThreee" class="checkout-head">
+                                                    <a href="#" class="text-dark d-flex align-items-center justify-content-between"
+                                                        data-toggle="collapse"
+                                                        data-target="#checkoutCollapseThreee"
+                                                        aria-expanded="true"
+                                                        aria-controls="checkoutCollapseThreee">
+
+                                                        <h3 class="checkout-title mb-0 font-weight-medium font-size-3">Payment</h3>
+
+                                                        <svg class="mins" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="2px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M0.000,-0.000 L15.000,-0.000 L15.000,2.000 L0.000,2.000 L0.000,-0.000 Z" />
+                                                        </svg>
+
+                                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px">
+                                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)" d="M15.000,8.000 L9.000,8.000 L9.000,15.000 L7.000,15.000 L7.000,8.000 L0.000,8.000 L0.000,6.000 L7.000,6.000 L7.000,-0.000 L9.000,-0.000 L9.000,6.000 L15.000,6.000 L15.000,8.000 Z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+
+                                                <div id="checkoutCollapseThreee" class="mt-4 checkout-content collapse show"
+                                                    aria-labelledby="checkoutHeadingThreee"
+                                                    data-parent="#checkoutAccordion">
+                                                    <div id="payment" class="woocommerce-checkout-payment">
+                                                        <ul class="wc_payment_methods payment_methods methods">
+                                                            <li class="wc_payment_method payment_method_cod">
+                                                                <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="cod" checked="checked" data-order_button_text="">
+
+                                                                <label for="payment_method_cod">Cash on delivery</label>
+                                                                <div class="payment_box payment_method_cod" style="display: block;">
+                                                                    <p>Pay with cash upon delivery.</p>
+                                                                </div>
+                                                            </li>
+
+                                                            <li class="wc_payment_method payment_method_bacs">
+                                                                <input id="payment_method_bacs" type="radio" disabled class="input-radio" name="payment_method" value="bacs" data-order_button_text="">
+
+                                                                <label for="payment_method_bacs" class="text-decaration">Direct bank transfer </label>
+                                                                <div class="payment_box payment_method_bacs text-decaration" style="display: block;">
+                                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                                </div>
+                                                            </li>
+
+                                                            <li class="wc_payment_method payment_method_cheque">
+                                                                <input id="payment_method_cheque" disabled type="radio" class="input-radio" name="payment_method" value="cheque" data-order_button_text="">
+
+                                                                <label for="payment_method_cheque" class="text-decaration">Check payments </label>
+                                                                <div class="payment_box payment_method_cheque text-decaration" style="display: block;">
+                                                                    <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row place-order">
+                                            <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+                                            <button type="submit" class="button alt btn btn-dark btn-block rounded-0 py-4" name="woocommerce_checkout_place_order" id="place_order" data-value="Place order">Place order</button> 
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                   <!-- .entry-content -->
+                </main>
+                <!-- #main -->
+            </div>
+            <!-- #primary -->
+        </div>
+        <!-- .col-full -->
+    </div>
+</div>

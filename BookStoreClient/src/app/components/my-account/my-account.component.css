@@ -1,0 +1,44 @@
+.hover:hover{
+    color:red !important;
+}
+.title-hover{
+    color: #161619 !important;
+}
+
+.hover-li{
+    color: gray;
+}
+
+.hover-li:hover{
+    color: red;
+}
+
+.password-ul li{
+    font-size: 13px;
+}
+
+.pw-success{
+    color:green;
+    text-decoration: line-through;
+}
+.pw-error{
+    color: red;
+    text-decoration: none;
+}
+
+.account-li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+
+.account-li-end{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin-top: 100px;
+    color : red !important;
+}

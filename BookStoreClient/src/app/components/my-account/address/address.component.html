@@ -1,0 +1,61 @@
+<div class="container margin">
+    <form #address="ngForm" (ngSubmit)="changeUserAddress(address)">
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <h2>{{addressType}} Address</h2>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="js-form-message">
+            <label for="contactName">Contact Name</label>
+            <input  type="text" [(ngModel)]="userAddress.contactName" class="form-control rounded-0 pl-3 placeholder-color-3" id="contactName" name="contactName" required >
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="js-form-message">
+            <label for="email">Contact Email</label>
+            <input  type="email" [(ngModel)]="userAddress.contactEmail" class="form-control rounded-0 pl-3 placeholder-color-3" id="email" name="email" required >
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="js-form-message">
+            <label for="number">Phone Number</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    +90
+                </span>
+                <input  type="text" [(ngModel)]="userAddress.contactPhoneNumber" class="form-control rounded-0" name="number" placeholder="5** *** ** **" id="number"
+                required >
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="js-form-message">
+            <label for="zipCode">Zip Code</label>
+            <input   type="text" [(ngModel)]="userAddress.zipCode" class="form-control rounded-0" name="zipCode" id="zipCode" required >
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="js-form-message">
+            <label for="city">City</label>
+            <input   type="text" [(ngModel)]="userAddress.city" class="form-control rounded-0" name="city" id="city" required >
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="js-form-message">
+            <label for="country">Country</label>
+            <input [(ngModel)]="userAddress.country" type="text" class="form-control rounded-0" name="country" id="country" required  >
+        </div>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="js-form-message">
+            <label for="addressDescription">Address Description</label>
+            <textarea [(ngModel)]="userAddress.addressDescription" required name="addressDescription" id="addressDescription" class="form-control rounded-0" style="min-height: 150px;"></textarea>
+        </div>
+    </div>
+    <div class="ml-3 mt-5">
+        <button type="submit" class="btn btn-wide btn-dark text-white rounded-0 transition-3d-hover height-60 width-390">Save Changes</button>
+    </div>
+</div>
+</form>
+</div>

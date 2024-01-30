@@ -1,0 +1,16 @@
+.btn-hover:hover{
+    color: #fff;
+}
+
+.password-ul li{
+    font-size: 13px;
+}
+
+.pw-success{
+    color:green;
+    text-decoration: line-through;
+}
+.pw-error{
+    color: red;
+    text-decoration: none;
+}

@@ -1,0 +1,67 @@
+<!-- ====== MAIN CONTENT ===== -->
+<main id="content">
+    <div class="space-bottom-2 space-bottom-lg-3">
+        <div class="pb-lg-1">
+            <div class="page-header border-bottom">
+                <div class="container">
+                    <div class="d-md-flex justify-content-between align-items-center py-4">
+                        <h1 class="page-title font-size-3 font-weight-medium m-0 text-lh-lg">Authors</h1>
+                        <nav class="woocommerce-breadcrumb font-size-2">
+                            <a href="/" class="h-primary">Home</a>
+                            <span class="breadcrumb-separator mx-1"><i class="fas fa-angle-right"></i></span>
+                            <span>Authors</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="u-cubeportfolio mb-5 mb-lg-7">
+                    <!-- Filter -->
+                    <ul id="filterControls" class="d-flex justify-content-between list-inline cbp-l-filters-alignRight cbp-l-filters-alignRight__custom text-left pl-lg-8 pt-4 pt-lg-8 mb-5 mb-lg-8 overflow-auto">
+                        <li #all class="list-inline-item bg-white text-secondary-gray-700 px-2 px-md-0 font-size-2 border-0 cbp-filter-item m-0 u-cubeportfolio__item"
+                         [ngClass]="selectedLetter===null ? 'cbp-filter-item-active' : ''" data-filter="*" (click)="getAuthorsFromFirstLetter(null)"  
+                         style="cursor: pointer;" >All</li>
+                        <li class="list-inline-item bg-white text-secondary-gray-700 px-2 px-md-0 font-size-2 border-0 cbp-filter-item m-0 u-cubeportfolio__item" style="cursor: pointer;"
+                        [ngClass]="f.firstLetter===selectedLetter ? 'cbp-filter-item-active' : ''"
+                        data-filter=".branding" *ngFor="let f of firstLetterOfAuthors" (click)="getAuthorsFromFirstLetter(f.firstLetter)">{{f.firstLetter}}</li>
+                    </ul>
+                    <!-- End Filter -->
+
+                    <!-- Content -->
+                   
+                        <!-- Item -->
+
+                     
+                        
+                        <div class="row" style="margin-top: 150px;">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let a of authors" style="max-width: 300; max-height: 300; margin-bottom: 150px;">
+
+                                <a href="/author-detail/{{a.id}}">
+                                        <div style="width: 200px; height: 200px; margin: 0 auto; text-align: center; ">
+                                            
+                                            <img class="mb-3" [src]="a.profilePhotoImgUrl" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+
+                                        </div>
+                                        <div class="py-3 text-center">
+                                            <h4 class="h6 text-dark">{{a.fullName}}</h4>
+                                            <!-- <span class="font-size-2 text-secondary-gray-700">21,658 Published Books</span> -->
+                                        </div>
+                                    </a>
+                            </div>
+                        </div>
+                            
+
+           
+                        
+                        <!-- End Item -->
+
+                        
+                    <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- ====== END MAIN CONTENT ===== -->

@@ -1,0 +1,8 @@
+.title-hover:hover{
+    color: #161619 !important;
+}
+
+.text-decaration{
+    text-decoration: line-through;
+    opacity: 0.5;
+}

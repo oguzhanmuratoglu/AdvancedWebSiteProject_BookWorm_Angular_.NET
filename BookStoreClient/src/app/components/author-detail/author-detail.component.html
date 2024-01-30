@@ -1,0 +1,181 @@
+<!-- ====== MAIN CONTENT ===== -->
+<main id="content">
+    <div class="space-bottom-2 space-bottom-lg-3">
+        <div class="pb-lg-1">
+            <div class="page-header border-bottom">
+                <div class="container">
+                    <div class="d-md-flex justify-content-between align-items-center py-4">
+                        <h1 class="page-title font-size-3 font-weight-medium m-0 text-lh-lg">{{authorDetail[0].fullName}}</h1>
+                        <nav class="woocommerce-breadcrumb font-size-2">
+                            <a href="/" class="h-primary">Home</a>
+                            <span class="breadcrumb-separator mx-1"><i class="fas fa-angle-right"></i></span>
+                            <a href="/authors-list" class="h-primary">Authors</a>
+                            <span class="breadcrumb-separator mx-1"><i class="fas fa-angle-right"></i></span>
+                            <span>{{authorDetail[0].fullName}}</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="space-bottom-2 space-bottom-lg-3">
+                <div class="bg-gray-200 space-bottom-2 space-bottom-md-0">
+                    <div class="container space-top-2 space-top-wd-3 px-3">
+                        <div class="row">
+                            <div class="col-lg-4 col-wd-3 d-flex">
+                                <div style="width: 400px; height: 759px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto;">
+                                    <img [src]="authorDetail[0].profilePhotoImgUrl" style="width: 100%; height: auto; display: flex; align-items: center; justify-content: center;" alt="Image-Description" />
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-wd-9">
+                                <div class="mb-8">
+                                    <span class="text-gray-400 font-size-2">AUTHOR DETAIL</span>
+                                    <h6 class="font-size-7 ont-weight-medium mt-2 mb-3 pb-1">
+                                        {{authorDetail[0].fullName}}
+                                    </h6>
+                                    <p class="mb-0">{{authorDetail[0].biographyEn}}</p>
+                                </div>
+                                <ul class="products list-unstyled row no-gutters row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-wd-4 my-0 mb-md-8 mb-wd-12">
+                                    <li class="product product__no-border col border-0 mb-2 mb-lg-0" *ngFor="let a of booksByAuthorId.result">
+                                        <div class="product__inner overflow-hidden p-3 p-md-4d875 mx-1 bg-white">
+                                            <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
+                                                <div class="woocommerce-loop-product__thumbnail">
+                                                    <a href="/book-detail/{{a.bookId}}" class="d-block">
+                                                        <div style="width: 120px; height: 180px; display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                                            <img class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image" [src]="a.mainImgUrl" alt="image-description">
+                                                            </div>
+                                                        </a>
+                                                </div>
+                                                <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
+                                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="..shop/single-product-v5.html">Hardcover</a></div>
+                                                    <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="/book-detail/{{a.bookId}}">{{a.titleEn}}</a></h2>
+                                                    <div class="font-size-2  mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{authorDetail[0].fullName}}</a></div>
+
+                                                    <div class="form-group mt-1 d-flex">
+                                                        <div>
+                                                            <i class="cursor font-size-lg"
+                                                                [ngClass]="(a.bookAverageReviewRating >= 1) ? 'fa-solid fa-star star-color' 
+                                                                : (a.bookAverageReviewRating > 0 && a.bookAverageReviewRating < 1) ? 'fa-solid fa-star-half-stroke star-color' : 'fa-star fa-regular'"></i>
+                                                            <i  class="cursor font-size-lg"
+                                                                [ngClass]="(a.bookAverageReviewRating >= 2) ? 'fa-solid fa-star star-color' 
+                                                                : (a.bookAverageReviewRating > 1 && a.bookAverageReviewRating < 2) ? 'fa-solid star-color half-star' : 'fa-star fa-regular'"></i>
+                                                            <i  class="cursor font-size-lg"
+                                                                [ngClass]="(a.bookAverageReviewRating >= 3) ? 'fa-solid fa-star star-color' 
+                                                                : (a.bookAverageReviewRating > 2 && a.bookAverageReviewRating < 3) ? 'fa-solid star-color half-star' : 'fa-star fa-regular'"></i>
+                                                            <i  class="cursor font-size-lg"
+                                                                [ngClass]="(a.bookAverageReviewRating >= 4) ? 'fa-solid fa-star star-color' 
+                                                                : (a.bookAverageReviewRating > 3 && a.bookAverageReviewRating < 4) ? 'fa-solid star-color half-star' : 'fa-star fa-regular'"></i>
+                                                            <i  class="cursor font-size-lg"
+                                                                [ngClass]="(a.bookAverageReviewRating === 5) ? 'fa-solid fa-star star-color' 
+                                                                : (a.bookAverageReviewRating > 4 && a.bookAverageReviewRating < 5) ? 'fa-solid fa-star-half-stroke star-color' : 'fa-regular fa-star'"></i>
+                                                        </div>
+                                                        <a href="/book-detail/{{a.bookId}}" style="margin-left: 7px;">{{a.reviewCount}}</a>
+                                                    </div>
+
+                                                    <div *ngIf="a.prices[0].discountedPriceAmount !== null" class="price d-flex align-items-center font-weight-medium font-size-3">
+                                                        <ins class="text-decoration-none mr-2" 
+                                                        ><span class="woocommerce-Price-amount amount font-size-22 font-weight-medium text-dark"><span class="woocommerce-Price-currencySymbol">{{a.prices[0].discountedPriceAmount}}</span>{{a.prices[0].priceCurrency}}</span></ins>
+                                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount font-size-1 text-primary-home-v3 opacity-md"><span class="woocommerce-Price-currencySymbol">{{a.prices[0].priceAmount}}</span>{{a.prices[0].priceCurrency}}</span></del>
+                                                    </div>
+    
+    
+                                                    <div *ngIf="a.prices[0].discountedPriceAmount === null" class="price d-flex align-items-center font-weight-medium font-size-3">
+                                                        <ins class="text-decoration-none mr-2" 
+                                                        ><span class="woocommerce-Price-amount amount font-size-22 font-weight-medium text-dark"><span class="woocommerce-Price-currencySymbol">{{a.prices[0].priceAmount}}</span>{{a.prices[0].priceCurrency}}</span></ins>
+                                                    </div>
+                                                </div>
+                                                <div class="product__hover d-flex align-items-center">
+                                                    <a href="../shop/single-product-v5.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" tabindex="0">
+                                                        <span class="product__add-to-cart">ADD TO CART</span>
+                                                        <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
+                                                    </a>
+                                                    <a href="../shop/single-product-v4.html" class="h-p-bg btn btn-outline-primary border-0" tabindex="0">
+                                                        <i class="flaticon-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container">
+                <header class="mb-5">
+                    <h2 class="font-size-7 mb-0">Author's Books</h2>
+                </header>
+                <ul class="products list-unstyled row no-gutters my-0 mb-md-8 mb-wd-12 ">
+                    <li class="product product__no-border col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let a of booksByAuthorId.result2">
+                        <div class="product__inner overflow-hidden p-3 p-md-4d875 mx-1 bg-white">
+                            <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
+                                <div class="woocommerce-loop-product__thumbnail">
+                                    <a href="/book-detail/{{a.bookId}}" class="d-block">
+                                        <div style="width: 120px; height: 180px; display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                                            <img class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image" [src]="a.mainImgUrl" alt="image-description">
+                                            </div>
+                                        </a>
+                                </div>
+                                <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
+                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="..shop/single-product-v5.html">Hardcover</a></div>
+                                    <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="/book-detail/{{a.bookId}}">{{a.titleEn}}</a></h2>
+                                    <div class="font-size-2  mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{authorDetail[0].fullName}}</a></div>
+
+                                    <div class="form-group mt-1 d-flex">
+                                        <div>
+                                            <i class="cursor font-size-lg"
+                                                [ngClass]="(a.bookAverageReviewRating >= 1) ? 'fa-solid fa-star star-color' 
+                                                : (a.bookAverageReviewRating > 0 && a.bookAverageReviewRating < 1) ? 'fa-solid fa-star-half-stroke star-color' : 'fa-star fa-regular'"></i>
+                                            <i  class="cursor font-size-lg"
+                                                [ngClass]="(a.bookAverageReviewRating >= 2) ? 'fa-solid fa-star star-color' 
+                                                : (a.bookAverageReviewRating > 1 && a.bookAverageReviewRating < 2) ? 'fa-solid star-color half-star' : 'fa-star fa-regular'"></i>
+                                            <i  class="cursor font-size-lg"
+                                                [ngClass]="(a.bookAverageReviewRating >= 3) ? 'fa-solid fa-star star-color' 
+                                                : (a.bookAverageReviewRating > 2 && a.bookAverageReviewRating < 3) ? 'fa-solid star-color half-star' : 'fa-star fa-regular'"></i>
+                                            <i  class="cursor font-size-lg"
+                                                [ngClass]="(a.bookAverageReviewRating >= 4) ? 'fa-solid fa-star star-color' 
+                                                : (a.bookAverageReviewRating > 3 && a.bookAverageReviewRating < 4) ? 'fa-solid star-color half-star' : 'fa-star fa-regular'"></i>
+                                            <i  class="cursor font-size-lg"
+                                                [ngClass]="(a.bookAverageReviewRating === 5) ? 'fa-solid fa-star star-color' 
+                                                : (a.bookAverageReviewRating > 4 && a.bookAverageReviewRating < 5) ? 'fa-solid fa-star-half-stroke star-color' : 'fa-regular fa-star'"></i>
+                                        </div>
+                                        <a href="/book-detail/{{a.bookId}}" style="margin-left: 7px;">{{a.reviewCount}}</a>
+                                    </div>
+                                    
+                                    <div *ngIf="a.prices[0].discountedPriceAmount !== null" class="price d-flex align-items-center font-weight-medium font-size-3">
+                                        <ins class="text-decoration-none mr-2" 
+                                        ><span class="woocommerce-Price-amount amount font-size-22 font-weight-medium text-dark"><span class="woocommerce-Price-currencySymbol">{{a.prices[0].discountedPriceAmount}}</span>{{a.prices[0].priceCurrency}}</span></ins>
+                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount font-size-1 text-primary-home-v3 opacity-md"><span class="woocommerce-Price-currencySymbol">{{a.prices[0].priceAmount}}</span>{{a.prices[0].priceCurrency}}</span></del>
+                                    </div>
+
+
+                                    <div *ngIf="a.prices[0].discountedPriceAmount === null" class="price d-flex align-items-center font-weight-medium font-size-3">
+                                        <ins class="text-decoration-none mr-2" 
+                                        ><span class="woocommerce-Price-amount amount font-size-22 font-weight-medium text-dark"><span class="woocommerce-Price-currencySymbol">{{a.prices[0].priceAmount}}</span>{{a.prices[0].priceCurrency}}</span></ins>
+                                    </div>
+                                </div>
+                                <div class="product__hover d-flex align-items-center">
+                                    <a href="../shop/single-product-v5.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" tabindex="0">
+                                        <span class="product__add-to-cart">ADD TO CART</span>
+                                        <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
+                                    </a>
+                                    <a href="../shop/single-product-v4.html" class="h-p-bg btn btn-outline-primary border-0" tabindex="0">
+                                        <i class="flaticon-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="/book-list-by-authorId/{{authorDetail[0].id}}" class="btn btn-primary" style="color: #fff;">See All {{authorDetail[0].fullName}}'s Books</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ====== END MAIN CONTENT ===== -->
